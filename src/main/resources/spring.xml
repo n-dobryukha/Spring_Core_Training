@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userStorage" class="java.util.HashMap"/>
+    <bean id="eventStorage" class="java.util.HashMap"/>
+    <bean id="auditoriumStorage" class="java.util.HashMap"/>
+
+    <bean id="inMemoryStorage" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="USER" value-ref="userStorage"/>
+                <entry key="EVENT" value-ref="eventStorage"/>
+                <entry key="AUDITORIUM" value-ref="auditoriumStorage"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+</beans>
