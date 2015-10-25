@@ -1,11 +1,10 @@
 package com.epam.university.spring.core;
 
+import com.epam.university.spring.core.dao.InMemoryStorage.UserDao;
 import com.epam.university.spring.core.domain.User;
+import com.epam.university.spring.core.service.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Nikita Dobriukha
@@ -13,15 +12,15 @@ import java.util.Map;
  */
 public class App {
 
+    public static String USER_STORAGE = "USER";
+
     public static void main(String[] args) {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("/spring.xml");
 
-        Map<String, User> storage = (HashMap) ctx.getBean("userStorage");
+        UserService userService = (UserService) ctx.getBean("userService");
 
-        User user = new User();
+        User user = userService.register("John Doe", "mail@example.com");
 
-        storage.put("1", user);
-
-        System.out.println(storage.size());
+        System.out.println(user.getId());
     }
 }
