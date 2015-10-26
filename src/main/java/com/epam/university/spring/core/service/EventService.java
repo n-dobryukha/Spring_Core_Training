@@ -4,7 +4,7 @@ import com.epam.university.spring.core.dao.GenericDao;
 import com.epam.university.spring.core.domain.Auditorium;
 import com.epam.university.spring.core.domain.Event;
 import com.epam.university.spring.core.domain.EventRating;
-import com.epam.university.spring.core.domain.Schedule;
+import com.epam.university.spring.core.domain.EventShowing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -23,11 +23,11 @@ public class EventService {
     private GenericDao<Long, Event> eventDao;
 
     @Autowired
-    @Qualifier("scheduleDao")
-    private GenericDao<Long, Schedule> scheduleDao;
+    @Qualifier("eventShowingDao")
+    private GenericDao<Long, EventShowing> eventShowingDao;
 
-    public Event create(String name, Date date, double price, EventRating rating) {
-        Event event = new Event(name, date, price, rating);
+    public Event create(String name, double price, EventRating rating) {
+        Event event = new Event(name, price, rating);
         eventDao.create(event);
         return event;
     }
@@ -47,9 +47,14 @@ public class EventService {
         return new ArrayList<Event>(eventDao.get());
     }
 
-    public Schedule assignAuditorium(Event event, Auditorium auditorium, Date date) {
-        Schedule schedule = new Schedule(event, auditorium, date);
-        scheduleDao.create(schedule);
-        return schedule;
+    public EventShowing assignAuditorium(Event event, Auditorium auditorium, Date date) {
+        EventShowing eventShowing = new EventShowing(event, auditorium, date);
+        eventShowingDao.create(eventShowing);
+        return eventShowing;
+    }
+
+    public EventShowing getEventShowing() {
+
+        return null;
     }
 }

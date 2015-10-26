@@ -13,7 +13,6 @@
 
     <context:annotation-config/>
 
-
     <util:list id = "discountStrategies" list-class="java.util.ArrayList">
         <bean class = "com.epam.university.spring.core.service.DiscountStrategy"
               c:discountValue = "5"
@@ -22,7 +21,5 @@
               c:discountValue = "50"
               c:discountType = "EVERY_10TH"/>
     </util:list>
-
-    <bean id = "discountService" class = "com.epam.university.spring.core.service.DiscountService"/>
 
 </beans>

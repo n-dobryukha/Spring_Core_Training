@@ -14,13 +14,6 @@
 
     <context:annotation-config/>
 
-    <import resource="discount.xml"/>
-
-    <bean id="userStorage" class="java.util.HashMap"/>
-    <bean id="eventStorage" class="java.util.HashMap"/>
-    <bean id="ticketStorage" class="java.util.HashMap"/>
-    <bean id="scheduleStorage" class="java.util.HashMap"/>
-
     <bean id="auditoriumProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
@@ -39,35 +32,15 @@
                   p:id = "${auditorium.1.id}"
                   c:name = "${auditorium.1.name}"
                   c:numberOfSeats = "${auditorium.1.numberOfSeats}"
-                  c:vipSeats = "${auditorium.1.vipSeats}"/>
+                  c:vipSeats = "#{T(java.util.Arrays).asList('${auditorium.1.vipSeats}')}"/>
         </entry>
         <entry key="${auditorium.2.id}">
             <bean class="com.epam.university.spring.core.domain.Auditorium" scope="prototype"
                   p:id = "${auditorium.2.id}"
                   c:name = "${auditorium.2.name}"
                   c:numberOfSeats = "${auditorium.2.numberOfSeats}"
-                  c:vipSeats = "${auditorium.2.vipSeats}"/>
+                  c:vipSeats = "#{T(java.util.Arrays).asList('${auditorium.2.vipSeats}')}"/>
         </entry>
     </util:map>
-
-    <bean id="auditoriumStorage" class="java.util.HashMap">
-        <constructor-arg ref="auditoriumValues"/>
-    </bean>
-
-    <bean id="auditoriumDao" class="com.epam.university.spring.core.dao.InMemoryStorage.AuditoriumDao"
-          c:storage-ref="auditoriumStorage"/>
-
-    <bean id="auditoriumService" class="com.epam.university.spring.core.service.AuditoriumService"/>
-
-    <bean id="userDao" class="com.epam.university.spring.core.dao.InMemoryStorage.UserDao"
-          c:storage-ref="userStorage"/>
-
-    <bean id="userService" class="com.epam.university.spring.core.service.UserService"/>
-
-    <bean id="ticketDao" class="com.epam.university.spring.core.dao.InMemoryStorage.TicketDao"
-          c:storage-ref="ticketStorage"/>
-
-    <bean id="scheduleDao" class="com.epam.university.spring.core.dao.InMemoryStorage.ScheduleDao"
-          c:storage-ref="scheduleStorage"/>
 
 </beans>

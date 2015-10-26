@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   					   http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	   					   http://www.springframework.org/schema/context
+	   					   http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+    <context:annotation-config/>
+    <import resource="InMemoryStorage.xml"/>
+
+    <bean id="userDao" class="com.epam.university.spring.core.dao.InMemoryStorage.UserDao"
+          c:storage-ref="userStorage"/>
+    <bean id="eventDao" class="com.epam.university.spring.core.dao.InMemoryStorage.EventDao"
+          c:storage-ref="eventStorage"/>
+    <bean id="auditoriumDao" class="com.epam.university.spring.core.dao.InMemoryStorage.AuditoriumDao"
+          c:storage-ref="auditoriumStorage"/>
+    <bean id="ticketDao" class="com.epam.university.spring.core.dao.InMemoryStorage.TicketDao"
+          c:storage-ref="ticketStorage"/>
+    <bean id="eventShowingDao" class="com.epam.university.spring.core.dao.InMemoryStorage.EventShowingDao"
+          c:storage-ref="eventShowingStorage"/>
+
+</beans>

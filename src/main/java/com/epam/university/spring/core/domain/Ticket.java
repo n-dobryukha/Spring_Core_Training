@@ -9,9 +9,16 @@ import com.epam.university.spring.core.dao.Storable;
 public class Ticket implements Storable<Long> {
     private Long id;
     private User user;
-    private Event event;
-    private Auditorium auditorium;
+    private EventShowing eventShowing;
     private int seat;
+    private double cost;
+
+    public Ticket(User user, EventShowing eventShowing, int seat, double cost) {
+        this.user = user;
+        this.eventShowing = eventShowing;
+        this.seat = seat;
+        this.cost = cost;
+    }
 
     public Long getId() {
         return id;
