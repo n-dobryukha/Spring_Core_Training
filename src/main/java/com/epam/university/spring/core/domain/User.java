@@ -2,7 +2,8 @@ package com.epam.university.spring.core.domain;
 
 import com.epam.university.spring.core.dao.Storable;
 
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Nikita Dobriukha
@@ -12,7 +13,7 @@ public class User implements Storable<Long> {
     private Long id;
     private String name;
     private String email;
-    private List<Ticket> bookedTickest;
+    private Date birthday;
 
     public User(String name, String email) {
         this.name = name;
@@ -33,5 +34,17 @@ public class User implements Storable<Long> {
 
     public String getName() {
         return name;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public boolean isBirthday() {
+        Calendar today = Calendar.getInstance();
+        Calendar birthday = Calendar.getInstance();
+        birthday.setTime(getBirthday());
+        return  (today.get(Calendar.DAY_OF_MONTH) == birthday.get(Calendar.DAY_OF_MONTH)) &&
+                (today.get(Calendar.MONTH) == birthday.get(Calendar.MONTH));
     }
 }

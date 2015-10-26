@@ -1,20 +1,27 @@
 package com.epam.university.spring.core.service;
 
 import com.epam.university.spring.core.dao.GenericDao;
+import com.epam.university.spring.core.domain.Ticket;
 import com.epam.university.spring.core.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
-import java.util.UUID;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Nikita Dobriukha
  * Date: 25.10.2015.
  */
 public class UserService {
+
+    @Autowired
+    @Qualifier("userDao")
     private GenericDao<Long, User> userDao;
 
-    public UserService(GenericDao<Long, User> userDao) {
-        this.userDao = userDao;
-    }
+    @Autowired
+    @Qualifier("ticketDao")
+    private GenericDao<Long, Ticket> ticketDao;
 
     public User register(String name, String email) {
         User user = new User(name, email);
@@ -42,5 +49,13 @@ public class UserService {
             if (name.equals(user.getName())) return user;
         }
         return null;
+    }
+
+    public List<Ticket> getBookedTickets(User user) {
+        List<Ticket> bookedTickets = new LinkedList<Ticket>();
+        for (Ticket ticket: ticketDao.get()) {
+            if (user.equals(ticket.getUser())) bookedTickets.add(ticket);
+        }
+        return bookedTickets;
     }
 }

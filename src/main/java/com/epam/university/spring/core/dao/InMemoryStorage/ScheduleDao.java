@@ -1,24 +1,26 @@
 package com.epam.university.spring.core.dao.InMemoryStorage;
 
-import com.epam.university.spring.core.domain.User;
+import com.epam.university.spring.core.domain.Schedule;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Map;
 import java.util.UUID;
 
 /**
- * Created by Nikita Dobriukha
- * Date: 25.10.2015.
+ * User: Nikita_Dobriukha
+ * Date: 2015-10-26
+ * Time: 12:25
  */
-public class UserDao extends GenericDaoImpl<Long, User> {
+public class ScheduleDao extends GenericDaoImpl<Long, Schedule> {
 
-    public UserDao(@Qualifier("userStorage") Map<Long, User> storage) {
+    public ScheduleDao(@Qualifier("scheduleStorage") Map<Long, Schedule> storage) {
         super(storage);
     }
 
     @Override
-    public Long create(User object) {
+    public Long create(Schedule object) {
         object.setId(UUID.randomUUID().getMostSignificantBits());
         return super.create(object);
     }
+
 }

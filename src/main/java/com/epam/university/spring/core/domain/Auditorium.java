@@ -19,4 +19,10 @@ public class Auditorium implements Storable<Long> {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Auditorium(String name, int numberOfSeats, String vipSeats) {
+        this.name = name;
+        this.numberOfSeats = numberOfSeats;
+        this.vipSeats = vipSeats;
+    }
 }

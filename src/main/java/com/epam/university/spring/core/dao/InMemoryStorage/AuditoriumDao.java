@@ -1,6 +1,7 @@
 package com.epam.university.spring.core.dao.InMemoryStorage;
 
 import com.epam.university.spring.core.domain.Auditorium;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Map;
 
@@ -10,7 +11,8 @@ import java.util.Map;
  */
 public class AuditoriumDao extends GenericDaoImpl<Long, Auditorium> {
 
-    public AuditoriumDao(Map<Long, Auditorium> storage) {
+    public AuditoriumDao(@Qualifier("auditoriumStorage") Map<Long, Auditorium> storage) {
         super(storage);
     }
+
 }
