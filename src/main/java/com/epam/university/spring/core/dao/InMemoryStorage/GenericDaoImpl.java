@@ -2,7 +2,6 @@ package com.epam.university.spring.core.dao.InMemoryStorage;
 
 import com.epam.university.spring.core.dao.GenericDao;
 import com.epam.university.spring.core.dao.Storable;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 import java.util.Map;

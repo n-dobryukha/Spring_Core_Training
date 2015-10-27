@@ -21,7 +21,7 @@ public class DiscountService {
     @Resource
     private List<DiscountStrategy> discountStrategies;
 
-    public double getDiscount(User user, Event event, Date date) {
+    public int getDiscount(User user, Event event, Date date) {
         int maxDiscount = 0;
         for (DiscountStrategy strategy: discountStrategies) {
             switch (strategy.getDiscountType()) {

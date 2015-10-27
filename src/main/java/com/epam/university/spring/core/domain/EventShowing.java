@@ -16,6 +16,9 @@ public class EventShowing implements Storable<Long> {
     private Auditorium auditorium;
     private Date date;
 
+    public EventShowing() {
+    }
+
     public EventShowing(Event event, Auditorium auditorium, Date date) {
         this.event = event;
         this.auditorium = auditorium;
@@ -34,11 +37,46 @@ public class EventShowing implements Storable<Long> {
         return event;
     }
 
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
     public Auditorium getAuditorium() {
         return auditorium;
     }
 
+    public void setAuditorium(Auditorium auditorium) {
+        this.auditorium = auditorium;
+    }
+
     public Date getDate() {
         return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EventShowing that = (EventShowing) o;
+
+        if (!id.equals(that.id)) return false;
+        if (!event.equals(that.event)) return false;
+        if (!auditorium.equals(that.auditorium)) return false;
+        return date.equals(that.date);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + event.hashCode();
+        result = 31 * result + auditorium.hashCode();
+        result = 31 * result + date.hashCode();
+        return result;
     }
 }

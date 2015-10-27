@@ -1,6 +1,6 @@
 package com.epam.university.spring.core.service;
 
-import com.epam.university.spring.core.dao.GenericDao;
+import com.epam.university.spring.core.dao.AuditoriumDao;
 import com.epam.university.spring.core.domain.Auditorium;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,7 +16,7 @@ public class AuditoriumService {
 
     @Autowired
     @Qualifier("auditoriumDao")
-    private GenericDao<Long, Auditorium> auditoriumDao;
+    private AuditoriumDao auditoriumDao;
 
     public List<Auditorium> getAll() {
         return new ArrayList<Auditorium>(auditoriumDao.get());

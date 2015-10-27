@@ -11,15 +11,15 @@
     <context:annotation-config/>
     <import resource="InMemoryStorage.xml"/>
 
-    <bean id="userDao" class="com.epam.university.spring.core.dao.InMemoryStorage.UserDao"
+    <bean id="userDao" class="com.epam.university.spring.core.dao.InMemoryStorage.UserDaoImpl"
           c:storage-ref="userStorage"/>
-    <bean id="eventDao" class="com.epam.university.spring.core.dao.InMemoryStorage.EventDao"
+    <bean id="eventDao" class="com.epam.university.spring.core.dao.InMemoryStorage.EventDaoImpl"
           c:storage-ref="eventStorage"/>
-    <bean id="auditoriumDao" class="com.epam.university.spring.core.dao.InMemoryStorage.AuditoriumDao"
+    <bean id="auditoriumDao" class="com.epam.university.spring.core.dao.InMemoryStorage.AuditoriumDaoImpl"
           c:storage-ref="auditoriumStorage"/>
-    <bean id="ticketDao" class="com.epam.university.spring.core.dao.InMemoryStorage.TicketDao"
+    <bean id="ticketDao" class="com.epam.university.spring.core.dao.InMemoryStorage.TicketDaoImpl"
           c:storage-ref="ticketStorage"/>
-    <bean id="eventShowingDao" class="com.epam.university.spring.core.dao.InMemoryStorage.EventShowingDao"
+    <bean id="eventShowingDao" class="com.epam.university.spring.core.dao.InMemoryStorage.EventShowingDaoImpl"
           c:storage-ref="eventShowingStorage"/>
 
 </beans>

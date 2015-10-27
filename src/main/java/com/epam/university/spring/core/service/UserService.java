@@ -1,30 +1,36 @@
 package com.epam.university.spring.core.service;
 
-import com.epam.university.spring.core.dao.GenericDao;
+import com.epam.university.spring.core.dao.UserDao;
 import com.epam.university.spring.core.domain.Ticket;
 import com.epam.university.spring.core.domain.User;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Created by Nikita Dobriukha
  * Date: 25.10.2015.
  */
-public class UserService {
+public class UserService implements ApplicationContextAware {
+
+    private ApplicationContext appContext;
+
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.appContext = applicationContext;
+    }
 
     @Autowired
     @Qualifier("userDao")
-    private GenericDao<Long, User> userDao;
-
-    @Autowired
-    @Qualifier("ticketDao")
-    private GenericDao<Long, Ticket> ticketDao;
+    private UserDao userDao;
 
     public User register(String name, String email) {
-        User user = new User(name, email);
+        User user = (User) appContext.getBean("user");
+        user.setName(name);
+        user.setEmail(email);
         userDao.create(user);
         return user;
     }
@@ -38,24 +44,18 @@ public class UserService {
     }
 
     public User getUserByEmail(String email) {
-        for (User user: userDao.get()) {
-            if (email.equals(user.getEmail())) return user;
-        }
-        return null;
+        return userDao.getUserByEmail(email);
     }
 
     public User getUserByName(String name) {
-        for (User user : userDao.get()) {
-            if (name.equals(user.getName())) return user;
-        }
-        return null;
+        return userDao.getUserByName(name);
+    }
+
+    public boolean isUserRegistered(User user) {
+        return userDao.get(user.getId()) != null;
     }
 
     public List<Ticket> getBookedTickets(User user) {
-        List<Ticket> bookedTickets = new LinkedList<Ticket>();
-        for (Ticket ticket: ticketDao.get()) {
-            if (user.equals(ticket.getUser())) bookedTickets.add(ticket);
-        }
-        return bookedTickets;
+        return userDao.getBookedTickets(user);
     }
 }

@@ -12,6 +12,8 @@ public class Event implements Storable<Long> {
     private double basePrice;
     private EventRating rating;
 
+    public Event() {}
+
     public Event(String name, double basePrice, EventRating rating) {
         this.name = name;
         this.basePrice = basePrice;
@@ -30,7 +32,49 @@ public class Event implements Storable<Long> {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public double getBasePrice() {
         return basePrice;
+    }
+
+    public void setBasePrice(double basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public EventRating getRating() {
+        return rating;
+    }
+
+    public void setRating(EventRating rating) {
+        this.rating = rating;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Event event = (Event) o;
+
+        if (Double.compare(event.basePrice, basePrice) != 0) return false;
+        if (!id.equals(event.id)) return false;
+        if (!name.equals(event.name)) return false;
+        return rating == event.rating;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        temp = Double.doubleToLongBits(basePrice);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + rating.hashCode();
+        return result;
     }
 }

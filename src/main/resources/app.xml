@@ -11,6 +11,7 @@
 
     <context:annotation-config/>
 
+    <import resource="beans.xml"/>
     <import resource="services.xml"/>
 
 </beans>
