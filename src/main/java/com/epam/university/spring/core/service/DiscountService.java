@@ -21,8 +21,8 @@ public class DiscountService {
     @Resource
     private List<DiscountStrategy> discountStrategies;
 
-    public int getDiscount(User user, Event event, Date date) {
-        int maxDiscount = 0;
+    public double getDiscount(User user, Event event, Date date) {
+        double maxDiscount = 0;
         for (DiscountStrategy strategy: discountStrategies) {
             switch (strategy.getDiscountType()) {
                 case BIRTHDAY:
@@ -33,7 +33,8 @@ public class DiscountService {
                     }
                     break;
                 case EVERY_10TH:
-                    if (userService.getBookedTickets(user).size()%10 == 0) {
+                    int bookedTicketsCount = userService.getBookedTickets(user).size();
+                    if ((bookedTicketsCount>0) && ((bookedTicketsCount+1)%10 == 0)) {
                         if (maxDiscount < strategy.getDiscountValue() ) {
                             maxDiscount = strategy.getDiscountValue();
                         }

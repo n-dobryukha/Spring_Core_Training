@@ -49,12 +49,16 @@ public class EventService implements ApplicationContextAware {
         eventDao.delete(event);
     }
 
+    public Event getEventById(Long id) {
+        return eventDao.get(id);
+    }
+
     public Event getEventByName(String name) {
         return eventDao.getEventByName(name);
     }
 
     public List<Event> getAll() {
-        return new ArrayList<Event>(eventDao.get());
+        return new ArrayList<>(eventDao.get());
     }
 
     public EventShowing assignAuditorium(Event event, Auditorium auditorium, Date date) {

@@ -21,7 +21,7 @@ public class TicketDaoImpl extends GenericDaoImpl<Long, Ticket> implements Ticke
     }
 
     public List<Ticket> getTicketsByEventShowing(EventShowing eventShowing) {
-        List<Ticket> tickets = new ArrayList<Ticket>();
+        List<Ticket> tickets = new ArrayList<>();
         for (Ticket ticket: get()) {
             if (eventShowing.equals(ticket.getEventShowing())) tickets.add(ticket);
         }

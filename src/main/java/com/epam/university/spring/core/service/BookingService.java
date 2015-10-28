@@ -1,6 +1,6 @@
 package com.epam.university.spring.core.service;
 
-import com.epam.university.spring.core.dao.*;
+import com.epam.university.spring.core.dao.TicketDao;
 import com.epam.university.spring.core.domain.*;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.text.DecimalFormat;
 
 /**
  * Created by Nikita Dobriukha
@@ -27,22 +27,6 @@ public class BookingService implements ApplicationContextAware {
     private static final int VIP_MARKUP = 20;
     private static final int HIGH_RATING_MARKUP = 20;
     private static final int LOW_RATING_MARKUP = -20;
-
-    @Autowired
-    @Qualifier("userDao")
-    private UserDao userDao;
-
-    @Autowired
-    @Qualifier("eventDao")
-    private EventDao eventDao;
-
-    @Autowired
-    @Qualifier("auditoriumDao")
-    private AuditoriumDao auditoriumDao;
-
-    @Autowired
-    @Qualifier("eventShowingDao")
-    private EventShowingDao eventShowingDao;
 
     @Autowired
     @Qualifier("ticketDao")
@@ -62,7 +46,7 @@ public class BookingService implements ApplicationContextAware {
 
     public double getTicketPrice(Event event, Date date, Integer seat, User user) {
         double price = event.getBasePrice();
-        int ratingMarkup = 0;
+        double ratingMarkup = 0;
         switch (event.getRating()) {
             case HIGH:
                 ratingMarkup = HIGH_RATING_MARKUP;
@@ -74,13 +58,18 @@ public class BookingService implements ApplicationContextAware {
                 break;
         }
         EventShowing eventShowing = eventService.getEventShowing(event, date);
-        int vipMarkup = 0;
+        double vipMarkup = 0;
         if (eventShowing != null) {
             Auditorium auditorium = eventShowing.getAuditorium();
             if (auditorium.isVIP(seat)) vipMarkup = VIP_MARKUP;
         }
-        int discount = discountService.getDiscount(user, event, date);
-        return price * (1 + ratingMarkup/100) * (1 + vipMarkup/100) * (1 - discount/100);
+        double discount = discountService.getDiscount(user, event, date);
+        return RoundTo2Decimals(price * (1 + ratingMarkup/100) * (1 + vipMarkup/100) * (1 - discount/100));
+    }
+
+    private double RoundTo2Decimals(double val) {
+        DecimalFormat df2 = new DecimalFormat("###.##");
+        return Double.valueOf(df2.format(val));
     }
 
     public Ticket bookTicket(Event event, Date date, Integer seat, User user) {

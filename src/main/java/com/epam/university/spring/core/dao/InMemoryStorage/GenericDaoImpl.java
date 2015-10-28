@@ -14,7 +14,7 @@ public abstract class GenericDaoImpl<PK, T extends Storable<PK>> implements Gene
 
     private Map<PK, T> storage;
 
-    public GenericDaoImpl(Map<PK, T> storage) {
+    GenericDaoImpl(Map<PK, T> storage) {
         this.storage = storage;
     }
 
@@ -39,4 +39,6 @@ public abstract class GenericDaoImpl<PK, T extends Storable<PK>> implements Gene
     public void delete(T object) {
         storage.remove(object.getId());
     }
+
+    public void delete() { storage.clear(); }
 }

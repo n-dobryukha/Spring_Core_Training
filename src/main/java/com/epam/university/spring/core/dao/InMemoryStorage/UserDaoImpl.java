@@ -27,7 +27,7 @@ public class UserDaoImpl extends GenericDaoImpl<Long, User> implements UserDao {
 
     public User getUserByName(String name) {
         for (User user: get()) {
-            if (name.equals(user.getEmail())) return user;
+            if (name.equals(user.getName())) return user;
         }
         return null;
     }
@@ -40,7 +40,7 @@ public class UserDaoImpl extends GenericDaoImpl<Long, User> implements UserDao {
     }
 
     public List<Ticket> getBookedTickets(User user) {
-        List<Ticket> bookedTickets = new ArrayList<Ticket>();
+        List<Ticket> bookedTickets = new ArrayList<>();
         for (Ticket ticket: ticketDao.get()) {
             if (user.equals(ticket.getUser())) bookedTickets.add(ticket);
         }

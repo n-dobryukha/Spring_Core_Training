@@ -6,7 +6,7 @@ import java.util.UUID;
  * Created by Nikita Dobriukha
  * Date: 28.10.2015.
  */
-public class IdGenerator {
+class IdGenerator {
 
     public static Long getLongId() {
         return UUID.randomUUID().getMostSignificantBits();

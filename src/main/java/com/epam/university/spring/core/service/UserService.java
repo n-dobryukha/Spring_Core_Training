@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,10 +28,11 @@ public class UserService implements ApplicationContextAware {
     @Qualifier("userDao")
     private UserDao userDao;
 
-    public User register(String name, String email) {
+    public User register(String name, String email, Date birthday) {
         User user = (User) appContext.getBean("user");
         user.setName(name);
         user.setEmail(email);
+        user.setBirthday(birthday);
         userDao.create(user);
         return user;
     }
@@ -39,7 +41,7 @@ public class UserService implements ApplicationContextAware {
         userDao.delete(user);
     }
 
-    public User getById(Long id) {
+    public User getUserById(Long id) {
         return userDao.get(id);
     }
 

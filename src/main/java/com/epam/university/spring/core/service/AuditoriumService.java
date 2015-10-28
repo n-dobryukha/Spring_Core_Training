@@ -18,8 +18,12 @@ public class AuditoriumService {
     @Qualifier("auditoriumDao")
     private AuditoriumDao auditoriumDao;
 
+    public Auditorium getAuditoriumById(Long id) {
+        return auditoriumDao.get(id);
+    }
+
     public List<Auditorium> getAll() {
-        return new ArrayList<Auditorium>(auditoriumDao.get());
+        return new ArrayList<>(auditoriumDao.get());
     }
 
 }
