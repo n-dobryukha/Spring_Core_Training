@@ -2,27 +2,18 @@ package com.epam.university.spring.core.service;
 
 import com.epam.university.spring.core.dao.TicketDao;
 import com.epam.university.spring.core.domain.*;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
-import java.text.DecimalFormat;
 
 /**
  * Created by Nikita Dobriukha
  * Date: 25.10.2015.
  */
-public class BookingService implements ApplicationContextAware {
-
-    private ApplicationContext appContext;
-
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.appContext = applicationContext;
-    }
+public class BookingService {
 
     private static final int VIP_MARKUP = 20;
     private static final int HIGH_RATING_MARKUP = 20;
@@ -73,13 +64,9 @@ public class BookingService implements ApplicationContextAware {
     }
 
     public Ticket bookTicket(Event event, Date date, Integer seat, User user) {
-        Ticket ticket = (Ticket) appContext.getBean("ticket");
         EventShowing eventShowing = eventService.getEventShowing(event, date);
         if (eventShowing == null) return null;
-        ticket.setEventShowing(eventShowing);
-        ticket.setUser(user);
-        ticket.setSeat(seat);
-        ticket.setCost(getTicketPrice(event, date, seat, user));
+        Ticket ticket = new Ticket(user, eventShowing, seat, getTicketPrice(event, date, seat, user));
         ticketDao.create(ticket);
         return ticket;
     }

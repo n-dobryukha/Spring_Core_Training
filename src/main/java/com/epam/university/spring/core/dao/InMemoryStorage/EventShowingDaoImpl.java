@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * User: Nikita_Dobriukha
@@ -18,6 +19,12 @@ public class EventShowingDaoImpl extends GenericDaoImpl<Long, EventShowing> impl
 
     public EventShowingDaoImpl(@Qualifier("eventShowingStorage") Map<Long, EventShowing> storage) {
         super(storage);
+    }
+
+    @Override
+    public Long create(EventShowing object) {
+        object.setId(UUID.randomUUID().getMostSignificantBits());
+        return super.create(object);
     }
 
     public EventShowing getShowing(Event event, Auditorium auditorium, Date date) {

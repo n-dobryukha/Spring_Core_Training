@@ -5,6 +5,7 @@ import com.epam.university.spring.core.domain.Auditorium;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by Nikita Dobriukha
@@ -16,4 +17,9 @@ public class AuditoriumDaoImpl extends GenericDaoImpl<Long, Auditorium> implemen
         super(storage);
     }
 
+    @Override
+    public Long create(Auditorium object) {
+        object.setId(UUID.randomUUID().getMostSignificantBits());
+        return super.create(object);
+    }
 }

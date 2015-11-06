@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by Nikita Dobriukha
@@ -23,6 +24,12 @@ public class UserDaoImpl extends GenericDaoImpl<Long, User> implements UserDao {
 
     public UserDaoImpl(@Qualifier("userStorage") Map<Long, User> storage) {
         super(storage);
+    }
+
+    @Override
+    public Long create(User object) {
+        object.setId(UUID.randomUUID().getMostSignificantBits());
+        return super.create(object);
     }
 
     public User getUserByName(String name) {

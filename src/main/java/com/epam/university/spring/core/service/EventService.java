@@ -6,11 +6,8 @@ import com.epam.university.spring.core.domain.Auditorium;
 import com.epam.university.spring.core.domain.Event;
 import com.epam.university.spring.core.domain.EventRating;
 import com.epam.university.spring.core.domain.EventShowing;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,13 +17,7 @@ import java.util.List;
  * Created by Nikita Dobriukha
  * Date: 25.10.2015.
  */
-public class EventService implements ApplicationContextAware {
-
-    private ApplicationContext appContext;
-
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.appContext = applicationContext;
-    }
+public class EventService {
 
     @Autowired
     @Qualifier("eventDao")
@@ -37,10 +28,7 @@ public class EventService implements ApplicationContextAware {
     private EventShowingDao eventShowingDao;
 
     public Event create(String name, double price, EventRating rating) {
-        Event event = (Event) appContext.getBean("event");
-        event.setName(name);
-        event.setBasePrice(price);
-        event.setRating(rating);
+        Event event = new Event(name, price, rating);
         eventDao.create(event);
         return event;
     }
@@ -62,10 +50,7 @@ public class EventService implements ApplicationContextAware {
     }
 
     public EventShowing assignAuditorium(Event event, Auditorium auditorium, Date date) {
-        EventShowing eventShowing = (EventShowing) appContext.getBean("eventShowing");
-        eventShowing.setEvent(event);
-        eventShowing.setAuditorium(auditorium);
-        eventShowing.setDate(date);
+        EventShowing eventShowing = new EventShowing(event, auditorium, date);
         eventShowingDao.create(eventShowing);
         return eventShowing;
     }

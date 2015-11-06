@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * User: Nikita_Dobriukha
@@ -18,6 +19,12 @@ public class TicketDaoImpl extends GenericDaoImpl<Long, Ticket> implements Ticke
 
     public TicketDaoImpl(@Qualifier("ticketStorage") Map<Long, Ticket> storage) {
         super(storage);
+    }
+
+    @Override
+    public Long create(Ticket object) {
+        object.setId(UUID.randomUUID().getMostSignificantBits());
+        return super.create(object);
     }
 
     public List<Ticket> getTicketsByEventShowing(EventShowing eventShowing) {
