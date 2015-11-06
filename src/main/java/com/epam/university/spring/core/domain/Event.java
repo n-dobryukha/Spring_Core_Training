@@ -8,11 +8,9 @@ import com.epam.university.spring.core.dao.Storable;
  */
 public class Event implements Storable<Long> {
     private Long id;
-    private String name;
-    private double basePrice;
-    private EventRating rating;
-
-    public Event() {}
+    private final String name;
+    private final double basePrice;
+    private final EventRating rating;
 
     public Event(String name, double basePrice, EventRating rating) {
         this.name = name;
@@ -32,24 +30,12 @@ public class Event implements Storable<Long> {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public double getBasePrice() {
         return basePrice;
     }
 
-    public void setBasePrice(double basePrice) {
-        this.basePrice = basePrice;
-    }
-
     public EventRating getRating() {
         return rating;
-    }
-
-    public void setRating(EventRating rating) {
-        this.rating = rating;
     }
 
     @Override

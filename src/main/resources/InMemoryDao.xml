@@ -21,5 +21,7 @@
           c:storage-ref="ticketStorage"/>
     <bean id="eventShowingDao" class="com.epam.university.spring.core.dao.InMemoryStorage.EventShowingDaoImpl"
           c:storage-ref="eventShowingStorage"/>
+    <bean id="eventCounterDao" class="com.epam.university.spring.core.dao.InMemoryStorage.EventCounterDaoImpl"
+          c:storage-ref="eventCounterStorage"/>
 
 </beans>

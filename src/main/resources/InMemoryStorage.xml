@@ -18,5 +18,6 @@
     <bean id="auditoriumStorage" class="java.util.HashMap">
         <constructor-arg ref="auditoriumValues"/>
     </bean>
+    <bean id="eventCounterStorage" class="java.util.HashMap"/>
 
 </beans>
