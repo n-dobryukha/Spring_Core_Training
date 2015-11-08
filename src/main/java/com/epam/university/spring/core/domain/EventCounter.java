@@ -30,6 +30,18 @@ public class EventCounter implements Storable<Event> {
         this.id = id;
     }
 
+    public long getCountAccessByName() {
+        return countAccessByName;
+    }
+
+    public long getCountPriceQueried() {
+        return countPriceQueried;
+    }
+
+    public long getCountTicketsBooked() {
+        return countTicketsBooked;
+    }
+
     public void incCounterAccessByName() {
         this.countAccessByName++;
     }

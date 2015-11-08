@@ -16,5 +16,6 @@
     <import resource="services.xml"/>
 
     <bean id="counterAspect" class="com.epam.university.spring.core.aspect.CounterAspect"/>
+    <bean id="discounterAspect" class="com.epam.university.spring.core.aspect.DiscountAspect"/>
 
 </beans>

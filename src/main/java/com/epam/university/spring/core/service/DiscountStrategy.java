@@ -5,7 +5,7 @@ package com.epam.university.spring.core.service;
  * Date: 2015-10-26
  * Time: 10:49
  */
-public class DiscountStrategy {
+public class DiscountStrategy implements Comparable<DiscountStrategy> {
 
     private int discountValue;
     private DiscountStrategyType discountType;
@@ -21,5 +21,10 @@ public class DiscountStrategy {
 
     public DiscountStrategyType getDiscountType() {
         return discountType;
+    }
+
+    @Override
+    public int compareTo(DiscountStrategy o) {
+        return o.getDiscountValue() - this.getDiscountValue();
     }
 }

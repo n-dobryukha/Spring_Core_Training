@@ -54,7 +54,8 @@ public class BookingService {
             Auditorium auditorium = eventShowing.getAuditorium();
             if (auditorium.isVIP(seat)) vipMarkup = VIP_MARKUP;
         }
-        double discount = discountService.getDiscount(user, event, date);
+        DiscountStrategy discountStrategy = discountService.getDiscountStrategy(user, event, date);
+        double discount = (discountStrategy != null) ? discountStrategy.getDiscountValue() : 0;
         return RoundTo2Decimals(price * (1 + ratingMarkup/100) * (1 + vipMarkup/100) * (1 - discount/100));
     }
 

@@ -11,12 +11,9 @@ import java.util.Date;
  */
 public class User implements Storable<Long> {
     private Long id;
-    private String name;
+    private final String name;
+    private final Date birthday;
     private String email;
-    private Date birthday;
-
-    public User() {
-    }
 
     public User(String name, String email, Date birthday) {
         this.name = name;
@@ -36,10 +33,6 @@ public class User implements Storable<Long> {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -50,10 +43,6 @@ public class User implements Storable<Long> {
 
     public Date getBirthday() {
         return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
     }
 
     public boolean isBirthday() {
@@ -73,7 +62,6 @@ public class User implements Storable<Long> {
 
         if (!id.equals(user.id)) return false;
         if (!name.equals(user.name)) return false;
-        if (!email.equals(user.email)) return false;
         return birthday.equals(user.birthday);
 
     }
@@ -82,7 +70,6 @@ public class User implements Storable<Long> {
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + name.hashCode();
-        result = 31 * result + email.hashCode();
         result = 31 * result + birthday.hashCode();
         return result;
     }

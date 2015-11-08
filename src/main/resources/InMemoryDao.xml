@@ -23,5 +23,6 @@
           c:storage-ref="eventShowingStorage"/>
     <bean id="eventCounterDao" class="com.epam.university.spring.core.dao.InMemoryStorage.EventCounterDaoImpl"
           c:storage-ref="eventCounterStorage"/>
-
+    <bean id="discountCounterDao" class="com.epam.university.spring.core.dao.InMemoryStorage.DiscountCounterDaoImpl"
+          c:storage-ref="discountCounterStorage"/>
 </beans>

@@ -5,6 +5,7 @@ import com.epam.university.spring.core.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -21,28 +22,24 @@ public class DiscountService {
     @Resource
     private List<DiscountStrategy> discountStrategies;
 
-    public double getDiscount(User user, Event event, Date date) {
-        double maxDiscount = 0;
+    public DiscountStrategy getDiscountStrategy(User user, Event event, Date date) {
+        Collections.sort(discountStrategies);
         for (DiscountStrategy strategy: discountStrategies) {
             switch (strategy.getDiscountType()) {
                 case BIRTHDAY:
                     if (user.isBirthday()) {
-                        if (maxDiscount < strategy.getDiscountValue() ) {
-                            maxDiscount = strategy.getDiscountValue();
-                        }
+                        return strategy;
                     }
                     break;
                 case EVERY_10TH:
                     int bookedTicketsCount = userService.getBookedTickets(user).size();
                     if ((bookedTicketsCount>0) && ((bookedTicketsCount+1)%10 == 0)) {
-                        if (maxDiscount < strategy.getDiscountValue() ) {
-                            maxDiscount = strategy.getDiscountValue();
-                        }
+                        return strategy;
                     }
                     break;
                 default: break;
             }
         }
-        return maxDiscount;
+        return null;
     }
 }
