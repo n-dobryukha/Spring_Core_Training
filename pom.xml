@@ -11,6 +11,7 @@
     <properties>
         <org.springframework-version>RELEASE</org.springframework-version>
         <aspectj-version>RELEASE</aspectj-version>
+        <derby-version>RELEASE</derby-version>
         <junit-version>RELEASE</junit-version>
     </properties>
 
@@ -26,9 +27,19 @@
             <version>${org.springframework-version}</version>
         </dependency>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${org.springframework-version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>${derby-version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
