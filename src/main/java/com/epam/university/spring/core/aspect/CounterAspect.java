@@ -21,7 +21,7 @@ public class CounterAspect {
     @Qualifier("eventCounterDao")
     private EventCounterDao eventCounterDao;
 
-    @AfterReturning(pointcut = "execution(public * com.epam.university.spring.core.service.EventService.getEventByName(..))",
+    @AfterReturning(pointcut = "execution(public * com.epam.university.spring.core.service.EventServiceImpl.getEventByName(..))",
                     returning = "event")
     public void accessByName(Event event) {
         EventCounter eventCounter = eventCounterDao.get(event);
@@ -33,7 +33,7 @@ public class CounterAspect {
         eventCounterDao.update(eventCounter);
     }
 
-    @After("execution(public * com.epam.university.spring.core.service.BookingService.getTicketPrice(..)) && args(event,..)")
+    @After("execution(public * com.epam.university.spring.core.service.BookingServiceImpl.getTicketPrice(..)) && args(event,..)")
     public void getTicketPrice(Event event) {
         EventCounter eventCounter = eventCounterDao.get(event);
         if (null == eventCounter) {
@@ -44,7 +44,7 @@ public class CounterAspect {
         eventCounterDao.update(eventCounter);
     }
 
-    @After("execution(public * com.epam.university.spring.core.service.BookingService.bookTicket(..)) && args(event,..)")
+    @After("execution(public * com.epam.university.spring.core.service.BookingServiceImpl.bookTicket(..)) && args(event,..)")
     public void bookTicket(Event event) {
         EventCounter eventCounter = eventCounterDao.get(event);
         if (null == eventCounter) {

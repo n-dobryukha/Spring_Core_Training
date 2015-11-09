@@ -20,7 +20,7 @@ public class DiscountAspect {
     @Qualifier("discountCounterDao")
     private DiscountCounterDao discountCounterDao;
 
-    @AfterReturning(pointcut = "execution(public * com.epam.university.spring.core.service.DiscountService.getDiscountStrategy(..)) && args(user, ..)",
+    @AfterReturning(pointcut = "execution(public * com.epam.university.spring.core.service.DiscountServiceImpl.getDiscountStrategy(..)) && args(user, ..)",
             returning = "discountStrategy")
     public void getDiscount(User user, DiscountStrategy discountStrategy) {
         if (discountStrategy == null) return;

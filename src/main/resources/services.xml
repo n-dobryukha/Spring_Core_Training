@@ -12,10 +12,10 @@
     <import resource="InMemoryDao.xml"/>
     <import resource="discount.xml"/>
 
-    <bean id="userService" class="com.epam.university.spring.core.service.UserService"/>
-    <bean id="eventService" class="com.epam.university.spring.core.service.EventService"/>
-    <bean id="auditoriumService" class="com.epam.university.spring.core.service.AuditoriumService"/>
-    <bean id="discountService" class="com.epam.university.spring.core.service.DiscountService"/>
-    <bean id="bookingService" class="com.epam.university.spring.core.service.BookingService"/>
+    <bean id="userService" class="com.epam.university.spring.core.service.UserServiceImpl"/>
+    <bean id="eventService" class="com.epam.university.spring.core.service.EventServiceImpl"/>
+    <bean id="auditoriumService" class="com.epam.university.spring.core.service.AuditoriumServiceImpl"/>
+    <bean id="discountService" class="com.epam.university.spring.core.service.DiscountServiceImpl"/>
+    <bean id="bookingService" class="com.epam.university.spring.core.service.BookingServiceImpl"/>
 
 </beans>

@@ -109,7 +109,7 @@ public class BookingServiceTest extends TestCase {
         //  HIGH Rating +   VIP     +   No Discount
         assertEquals(144.00, bookingService.getTicketPrice(dummyEventWithHighRating, dummyDateOfEventWithHighRating, vipSeat, dummyUnregisteredUser));
         //  HIGH Rating +   VIP     +   Birthday discount
-        //assertEquals(136.80, bookingService.getTicketPrice(dummyEventWithHighRating, dummyDateOfEventWithHighRating, vipSeat, dummyRegisteredUser));
+        assertEquals(136.80, bookingService.getTicketPrice(dummyEventWithHighRating, dummyDateOfEventWithHighRating, vipSeat, dummyRegisteredUser));
         //  HIGH Rating +   VIP     +   10th ticket discount
         assertEquals(72.00, bookingService.getTicketPrice(dummyEventWithHighRating, dummyDateOfEventWithHighRating, vipSeat, dummyRegisteredUserWithBookedTickets));
         //  MID Rating  +   No VIP  +   No Discount
@@ -133,7 +133,7 @@ public class BookingServiceTest extends TestCase {
         //  LOW Rating  +   VIP     +   No Discount
         assertEquals(96.00, bookingService.getTicketPrice(dummyEventWithLowRating, dummyDateOfEventWithLowRating, vipSeat, dummyUnregisteredUser));
         //  LOW Rating  +   VIP     +   Birthday discount
-        //assertEquals(91.20, bookingService.getTicketPrice(dummyEventWithLowRating, dummyDateOfEventWithLowRating, vipSeat, dummyRegisteredUser));
+        assertEquals(91.20, bookingService.getTicketPrice(dummyEventWithLowRating, dummyDateOfEventWithLowRating, vipSeat, dummyRegisteredUser));
         //  LOW Rating  +   VIP     +   10th ticket discount
         assertEquals(48.00, bookingService.getTicketPrice(dummyEventWithLowRating, dummyDateOfEventWithLowRating, vipSeat, dummyRegisteredUserWithBookedTickets));
     }

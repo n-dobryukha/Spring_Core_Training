@@ -26,10 +26,14 @@ public class DiscountCounter implements Storable<User> {
 
     private Map<DiscountStrategyType, Long> counter = new HashMap<>();
 
+    public Long getCountByStrategyType(DiscountStrategyType discountStrategyType) {
+        return counter.get(discountStrategyType);
+    }
+
     public void increment(DiscountStrategyType discountStrategyType) {
         if (!counter.containsKey(discountStrategyType)) {
             counter.put(discountStrategyType,0L);
-        };
+        }
         counter.put(discountStrategyType, counter.get(discountStrategyType) + 1);
     }
 }
