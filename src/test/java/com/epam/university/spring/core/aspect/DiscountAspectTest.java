@@ -16,7 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * User: Nikita_Dobriukha
@@ -71,27 +71,30 @@ public class DiscountAspectTest extends TestCase {
     public void testGetDiscount() {
         discountCounterDao.delete();
         Calendar calendar = Calendar.getInstance();
+        Date dummyEventDate = new Date(calendar.getTimeInMillis());
+
+        User dummyUserOne = userService.register("James Smith", "j.smith@example.com", new Date(calendar.getTimeInMillis()));
         calendar.set(1980, Calendar.MAY, 1);
-        User dummyUserOne = userService.register("John Doe", "j.doe@example.com", calendar.getTime());
-        User dummyUserTwo = userService.register("James Smith", "j.smith@example.com", new Date());
+        User dummyUserTwo = userService.register("John Doe", "j.doe@example.com", new Date(calendar.getTimeInMillis()));
+        
         Event dummyEvent = eventService.create("The Martian", 100, EventRating.MID);
         Auditorium auditorium = auditoriumService.getAuditoriumById(1L);
-        Date dummyEventDate = new Date();
+
         eventService.assignAuditorium(dummyEvent, auditorium, dummyEventDate);
 
         for (int i=0; i<10; i++) {
-            bookingService.bookTicket(dummyEvent, dummyEventDate, 10 + i, dummyUserOne);
+            bookingService.bookTicket(dummyEvent, dummyEventDate, 10 + i, dummyUserTwo);
         }
         assertEquals(1, (long) discountCounterDao.get(null).getCountByStrategyType(DiscountStrategyType.EVERY_10TH));
-        assertEquals(1, (long) discountCounterDao.get(dummyUserOne).getCountByStrategyType(DiscountStrategyType.EVERY_10TH));
+        assertEquals(1, (long) discountCounterDao.get(dummyUserTwo).getCountByStrategyType(DiscountStrategyType.EVERY_10TH));
 
         for (int i=0; i<9; i++) {
-            bookingService.bookTicket(dummyEvent, dummyEventDate, 20 + i, dummyUserTwo);
+            bookingService.bookTicket(dummyEvent, dummyEventDate, 20 + i, dummyUserOne);
         }
         assertEquals(9, (long) discountCounterDao.get(null).getCountByStrategyType(DiscountStrategyType.BIRTHDAY));
-        assertEquals(9, (long) discountCounterDao.get(dummyUserTwo).getCountByStrategyType(DiscountStrategyType.BIRTHDAY));
-        bookingService.bookTicket(dummyEvent, dummyEventDate, 30, dummyUserTwo);
+        assertEquals(9, (long) discountCounterDao.get(dummyUserOne).getCountByStrategyType(DiscountStrategyType.BIRTHDAY));
+        bookingService.bookTicket(dummyEvent, dummyEventDate, 30, dummyUserOne);
         assertEquals(2, (long) discountCounterDao.get(null).getCountByStrategyType(DiscountStrategyType.EVERY_10TH));
-        assertEquals(1, (long) discountCounterDao.get(dummyUserTwo).getCountByStrategyType(DiscountStrategyType.EVERY_10TH));
+        assertEquals(1, (long) discountCounterDao.get(dummyUserOne).getCountByStrategyType(DiscountStrategyType.EVERY_10TH));
     }
 }

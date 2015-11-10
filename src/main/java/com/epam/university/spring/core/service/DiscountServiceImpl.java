@@ -27,7 +27,7 @@ public class DiscountServiceImpl implements DiscountService {
         for (DiscountStrategy strategy: discountStrategies) {
             switch (strategy.getDiscountType()) {
                 case BIRTHDAY:
-                    if (user.isBirthday()) {
+                    if (user.isBirthdayToday()) {
                         return strategy;
                     }
                     break;

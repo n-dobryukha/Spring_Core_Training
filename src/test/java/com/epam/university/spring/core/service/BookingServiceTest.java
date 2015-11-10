@@ -12,7 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 import java.util.UUID;
 
 /**
@@ -56,9 +56,9 @@ public class BookingServiceTest extends TestCase {
     @Before
     public void setUp() {
         Calendar calendar = Calendar.getInstance();
-        dummyRegisteredUser = userService.register("John Doe", "j.doe@example.com", new Date());
+        dummyRegisteredUser = userService.register("John Doe", "j.doe@example.com", new Date(calendar.getTimeInMillis()));
         calendar.set(1980, Calendar.MAY, 1);
-        dummyUnregisteredUser = new User("James Smith", "j.smith@example.com", calendar.getTime());
+        dummyUnregisteredUser = new User("James Smith", "j.smith@example.com", new Date(calendar.getTimeInMillis()));
         dummyUnregisteredUser.setId(UUID.randomUUID().getMostSignificantBits());
 
         dummyEventWithHighRating = eventService.create("Star Wars: Episode VII - The Force Awakens", 100, EventRating.HIGH);
@@ -70,16 +70,16 @@ public class BookingServiceTest extends TestCase {
         noVipSeat = 10;
 
         calendar.set(2016, Calendar.JANUARY, 1);
-        dummyDateOfEventWithHighRating = calendar.getTime();
+        dummyDateOfEventWithHighRating = new Date(calendar.getTimeInMillis());
         eventService.assignAuditorium(dummyEventWithHighRating, auditorium, dummyDateOfEventWithHighRating);
         calendar.set(2016, Calendar.FEBRUARY, 2);
-        dummyDateOfEventWithMidRating = calendar.getTime();
+        dummyDateOfEventWithMidRating = new Date(calendar.getTimeInMillis());
         eventService.assignAuditorium(dummyEventWithMidRating, auditorium, dummyDateOfEventWithMidRating);
         calendar.set(2016, Calendar.MARCH, 3);
-        dummyDateOfEventWithLowRating = calendar.getTime();
+        dummyDateOfEventWithLowRating = new Date(calendar.getTimeInMillis());
         eventService.assignAuditorium(dummyEventWithLowRating, auditorium, dummyDateOfEventWithLowRating);
 
-        dummyRegisteredUserWithBookedTickets = userService.register("George Brown", "g.brown@example.com", calendar.getTime());
+        dummyRegisteredUserWithBookedTickets = userService.register("George Brown", "g.brown@example.com", new Date(calendar.getTimeInMillis()));
         for (int i=0; i<9; i++) {
             bookingService.bookTicket(dummyEventWithLowRating, dummyDateOfEventWithLowRating, 20 + i, dummyRegisteredUserWithBookedTickets);
         }

@@ -1,16 +1,20 @@
 package com.epam.university.spring.core.domain;
 
+import com.epam.university.spring.core.dao.RetreiveFieldsValues;
 import com.epam.university.spring.core.dao.Storable;
 
 /**
  * Created by Nikita Dobriukha
  * Date: 25.10.2015.
  */
-public class Event implements Storable<Long> {
+public class Event implements Storable<Long>, RetreiveFieldsValues {
     private Long id;
-    private final String name;
-    private final double basePrice;
-    private final EventRating rating;
+    private String name;
+    private double basePrice;
+    private EventRating rating;
+
+    public Event() {
+    }
 
     public Event(String name, double basePrice, EventRating rating) {
         this.name = name;
@@ -18,10 +22,12 @@ public class Event implements Storable<Long> {
         this.rating = rating;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -30,12 +36,29 @@ public class Event implements Storable<Long> {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public double getBasePrice() {
         return basePrice;
     }
 
+    public void setBasePrice(double basePrice) {
+        this.basePrice = basePrice;
+    }
+
     public EventRating getRating() {
         return rating;
+    }
+
+    public void setRating(EventRating rating) {
+        this.rating = rating;
+    }
+
+    @Override
+    public Object[] getFieldsValues() {
+        return new Object[] {getName(), getBasePrice(), getRating().toString()};
     }
 
     @Override

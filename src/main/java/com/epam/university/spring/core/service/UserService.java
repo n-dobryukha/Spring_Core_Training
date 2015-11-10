@@ -3,7 +3,7 @@ package com.epam.university.spring.core.service;
 import com.epam.university.spring.core.domain.Ticket;
 import com.epam.university.spring.core.domain.User;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 /**

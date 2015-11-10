@@ -1,13 +1,16 @@
 package com.epam.university.spring.core.service;
 
+import com.epam.university.spring.core.dao.JdbcStorage.UserDaoImpl;
 import com.epam.university.spring.core.domain.User;
 import junit.framework.TestCase;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.Date;
 import java.util.Calendar;
 
 /**
@@ -23,6 +26,14 @@ public class UserServiceTest extends TestCase {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserDaoImpl userDao;
+
+    @After
+    public void tearDown() throws Exception {
+        userDao.delete();
+    }
+
     @Test
     public void testInjectUserService() {
         assertNotNull(userService);
@@ -31,9 +42,7 @@ public class UserServiceTest extends TestCase {
     private User createUser() {
         String DUMMY_USER_NAME = "John Doe";
         String DUMMY_USER_EMAIL = "j.doe@example.com";
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(1985, Calendar.JANUARY, 1);
-        User user = userService.register(DUMMY_USER_NAME, DUMMY_USER_EMAIL, calendar.getTime());
+        User user = userService.register(DUMMY_USER_NAME, DUMMY_USER_EMAIL, new Date(1985, Calendar.JANUARY, 1));
         assertNotNull(user);
         assertTrue(userService.isUserRegistered(user));
         return user;

@@ -16,7 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created by Nikita Dobriukha
@@ -46,7 +46,7 @@ public class CounterAspectTest extends TestCase{
     @Before
     public void setUp() {
         dummyEvent = eventService.create(DUMMY_EVENT_NAME, 100, EventRating.HIGH);
-        dummyDate = Calendar.getInstance().getTime();
+        dummyDate = new Date(Calendar.getInstance().getTimeInMillis());
         dummyUser = userService.register("John Doe", "j.doe@example.com", dummyDate);
     }
 

@@ -1,19 +1,23 @@
 package com.epam.university.spring.core.domain;
 
+import com.epam.university.spring.core.dao.RetreiveFieldsValues;
 import com.epam.university.spring.core.dao.Storable;
 
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created by Nikita Dobriukha
  * Date: 25.10.2015.
  */
-public class User implements Storable<Long> {
+public class User implements Storable<Long>, RetreiveFieldsValues {
     private Long id;
-    private final String name;
-    private final Date birthday;
+    private String name;
+    private Date birthday;
     private String email;
+
+    public User() {
+    }
 
     public User(String name, String email, Date birthday) {
         this.name = name;
@@ -33,6 +37,10 @@ public class User implements Storable<Long> {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -45,12 +53,21 @@ public class User implements Storable<Long> {
         return birthday;
     }
 
-    public boolean isBirthday() {
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public boolean isBirthdayToday() {
         Calendar today = Calendar.getInstance();
         Calendar birthday = Calendar.getInstance();
         birthday.setTime(getBirthday());
         return  (today.get(Calendar.DAY_OF_MONTH) == birthday.get(Calendar.DAY_OF_MONTH)) &&
                 (today.get(Calendar.MONTH) == birthday.get(Calendar.MONTH));
+    }
+
+    @Override
+    public Object[] getFieldsValues() {
+        return new Object[] {getName(), getEmail(), getBirthday()};
     }
 
     @Override

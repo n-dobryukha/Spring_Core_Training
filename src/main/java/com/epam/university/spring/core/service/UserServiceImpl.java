@@ -6,7 +6,7 @@ import com.epam.university.spring.core.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 /**

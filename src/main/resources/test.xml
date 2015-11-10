@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	   					   http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
@@ -11,11 +12,12 @@
 	   					   http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
 
     <context:annotation-config/>
-    <aop:aspectj-autoproxy />
 
-    <import resource="services.xml"/>
+    <import resource="JdbcStorage.xml"/>
 
-    <!--<bean id="counterAspect" class="com.epam.university.spring.core.aspect.CounterAspect"/>
-    <bean id="discounterAspect" class="com.epam.university.spring.core.aspect.DiscountAspect"/>-->
+    <bean id="dummyDao" class="com.epam.university.spring.core.dao.JdbcStorage.DummyObjectDao"
+          c:jdbcTemplate-ref="jdbcTemplate" init-method="createTable"/>
+    <bean id="eventDao" class="com.epam.university.spring.core.dao.JdbcStorage.EventDaoImpl"
+          c:jdbcTemplate-ref="jdbcTemplate" init-method="createTable"/>
 
 </beans>
