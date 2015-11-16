@@ -1,5 +1,6 @@
 package com.epam.university.spring.core.domain;
 
+import com.epam.university.spring.core.dao.RetreiveFieldsValues;
 import com.epam.university.spring.core.dao.Storable;
 
 import java.util.Date;
@@ -9,7 +10,7 @@ import java.util.Date;
  * Date: 2015-10-26
  * Time: 12:23
  */
-public class EventShowing implements Storable<Long> {
+public class EventShowing implements Storable<Long>, RetreiveFieldsValues {
 
     private Long id;
     private Event event;
@@ -55,6 +56,11 @@ public class EventShowing implements Storable<Long> {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public Object[] getFieldsValues() {
+        return new Object[] {this.event.getId(), this.auditorium.getId(), this.date};
     }
 
     @Override

@@ -13,9 +13,9 @@
     <import resource="discount.xml"/>
 
     <bean id="userService" class="com.epam.university.spring.core.service.UserServiceImpl"/>
-    <!--<bean id="eventService" class="com.epam.university.spring.core.service.EventServiceImpl"/>
     <bean id="auditoriumService" class="com.epam.university.spring.core.service.AuditoriumServiceImpl"/>
+    <bean id="eventService" class="com.epam.university.spring.core.service.EventServiceImpl"/>
     <bean id="discountService" class="com.epam.university.spring.core.service.DiscountServiceImpl"/>
-    <bean id="bookingService" class="com.epam.university.spring.core.service.BookingServiceImpl"/>-->
+    <bean id="bookingService" class="com.epam.university.spring.core.service.BookingServiceImpl"/>
 
 </beans>

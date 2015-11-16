@@ -13,5 +13,4 @@ public interface UserDao extends GenericDao<Long, User> {
 
     User getUserByName(String name);
     User getUserByEmail(String email);
-    List<Ticket> getBookedTickets(User user);
 }

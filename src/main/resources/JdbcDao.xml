@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -11,13 +12,21 @@
     <context:annotation-config/>
     <import resource="JdbcStorage.xml"/>
 
+    <bean id="dummyDao" class="com.epam.university.spring.core.dao.JdbcStorage.DummyObjectDao"
+          c:jdbcTemplate-ref="jdbcTemplate" init-method="createTable"/>
     <bean id="userDao" class="com.epam.university.spring.core.dao.JdbcStorage.UserDaoImpl"
+          c:jdbcTemplate-ref="jdbcTemplate" init-method="createTable"/>
+    <bean id="auditoriumDao" class="com.epam.university.spring.core.dao.JdbcStorage.AuditoriumDaoImpl"
           c:jdbcTemplate-ref="jdbcTemplate" init-method="createTable"/>
     <bean id="eventDao" class="com.epam.university.spring.core.dao.JdbcStorage.EventDaoImpl"
           c:jdbcTemplate-ref="jdbcTemplate" init-method="createTable"/>
-    <!--<bean id="auditoriumDao" class="com.epam.university.spring.core.dao.InMemoryStorage.AuditoriumDaoImpl"
-          c:storage-ref="auditoriumStorage"/>
-    <bean id="ticketDao" class="com.epam.university.spring.core.dao.InMemoryStorage.TicketDaoImpl"
+    <bean id="eventShowingRowMapper" class="com.epam.university.spring.core.dao.JdbcStorage.EventShowingRowMapper"/>
+    <bean id="eventShowingDao" class="com.epam.university.spring.core.dao.JdbcStorage.EventShowingDaoImpl"
+          c:jdbcTemplate-ref="jdbcTemplate" c:rowMapper-ref="eventShowingRowMapper" init-method="createTable"/>
+    <bean id="ticketRowMapper" class="com.epam.university.spring.core.dao.JdbcStorage.TicketRowMapper"/>
+    <bean id="ticketDao" class="com.epam.university.spring.core.dao.JdbcStorage.TicketDaoImpl"
+          c:jdbcTemplate-ref="jdbcTemplate" c:rowMapper-ref="ticketRowMapper" init-method="createTable"/>
+    <!--<bean id="ticketDao" class="com.epam.university.spring.core.dao.InMemoryStorage.TicketDaoImpl"
           c:storage-ref="ticketStorage"/>
     <bean id="eventShowingDao" class="com.epam.university.spring.core.dao.InMemoryStorage.EventShowingDaoImpl"
           c:storage-ref="eventShowingStorage"/>

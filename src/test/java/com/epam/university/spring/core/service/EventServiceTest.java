@@ -1,6 +1,6 @@
 package com.epam.university.spring.core.service;
 
-import com.epam.university.spring.core.dao.InMemoryStorage.EventDaoImpl;
+import com.epam.university.spring.core.dao.JdbcStorage.EventDaoImpl;
 import com.epam.university.spring.core.domain.Auditorium;
 import com.epam.university.spring.core.domain.Event;
 import com.epam.university.spring.core.domain.EventRating;
@@ -87,9 +87,7 @@ public class EventServiceTest extends TestCase {
         Event event = createEvent();
         Auditorium auditorium = auditoriumService.getAll().get(0);
         assertNotNull(auditorium);
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2016, Calendar.JANUARY, 1);
-        EventShowing eventShowing = eventService.assignAuditorium(event, auditorium, calendar.getTime());
+        EventShowing eventShowing = eventService.assignAuditorium(event, auditorium, new Date(116, 0, 1));
         assertNotNull(eventShowing);
         return eventShowing;
     }

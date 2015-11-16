@@ -45,12 +45,4 @@ public class UserDaoImpl extends GenericDaoImpl<Long, User> implements UserDao {
         }
         return null;
     }
-
-    public List<Ticket> getBookedTickets(User user) {
-        List<Ticket> bookedTickets = new ArrayList<>();
-        for (Ticket ticket: ticketDao.get()) {
-            if (user.equals(ticket.getUser())) bookedTickets.add(ticket);
-        }
-        return bookedTickets;
-    }
 }

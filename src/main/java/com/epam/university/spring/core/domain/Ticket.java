@@ -1,12 +1,13 @@
 package com.epam.university.spring.core.domain;
 
+import com.epam.university.spring.core.dao.RetreiveFieldsValues;
 import com.epam.university.spring.core.dao.Storable;
 
 /**
  * Created by Nikita Dobriukha
  * Date: 25.10.2015.
  */
-public class Ticket implements Storable<Long> {
+public class Ticket implements Storable<Long>, RetreiveFieldsValues {
     private Long id;
     private User user;
     private EventShowing eventShowing;
@@ -61,6 +62,11 @@ public class Ticket implements Storable<Long> {
 
     public void setCost(double cost) {
         this.cost = cost;
+    }
+
+    @Override
+    public Object[] getFieldsValues() {
+        return new Object[] {user.getId(), eventShowing.getId(), seat, cost};
     }
 
     @Override

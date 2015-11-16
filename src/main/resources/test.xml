@@ -13,11 +13,7 @@
 
     <context:annotation-config/>
 
-    <import resource="JdbcStorage.xml"/>
+    <import resource="JdbcDao.xml"/>
 
-    <bean id="dummyDao" class="com.epam.university.spring.core.dao.JdbcStorage.DummyObjectDao"
-          c:jdbcTemplate-ref="jdbcTemplate" init-method="createTable"/>
-    <bean id="eventDao" class="com.epam.university.spring.core.dao.JdbcStorage.EventDaoImpl"
-          c:jdbcTemplate-ref="jdbcTemplate" init-method="createTable"/>
 
 </beans>

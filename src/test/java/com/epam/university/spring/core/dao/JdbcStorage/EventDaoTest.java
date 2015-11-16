@@ -41,7 +41,7 @@ public class EventDaoTest extends TestCase {
     }
 
     @Test
-    public void testInjectUserService() {
+    public void testInjectEventDao() {
         assertNotNull(eventDao);
     }
 

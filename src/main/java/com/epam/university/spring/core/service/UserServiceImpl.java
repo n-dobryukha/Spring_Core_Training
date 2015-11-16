@@ -1,5 +1,6 @@
 package com.epam.university.spring.core.service;
 
+import com.epam.university.spring.core.dao.TicketDao;
 import com.epam.university.spring.core.dao.UserDao;
 import com.epam.university.spring.core.domain.Ticket;
 import com.epam.university.spring.core.domain.User;
@@ -18,6 +19,10 @@ public class UserServiceImpl implements UserService{
     @Autowired
     @Qualifier("userDao")
     private UserDao userDao;
+
+    @Autowired
+    @Qualifier("ticketDao")
+    private TicketDao ticketDao;
 
     public User register(String name, String email, Date birthday) {
         User user = new User(name, email, birthday);
@@ -46,6 +51,6 @@ public class UserServiceImpl implements UserService{
     }
 
     public List<Ticket> getBookedTickets(User user) {
-        return userDao.getBookedTickets(user);
+        return ticketDao.getBookedTickets(user);
     }
 }

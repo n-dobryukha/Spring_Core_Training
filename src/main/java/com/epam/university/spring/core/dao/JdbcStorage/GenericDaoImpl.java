@@ -3,14 +3,19 @@ package com.epam.university.spring.core.dao.JdbcStorage;
 import com.epam.university.spring.core.dao.GenericDao;
 import com.epam.university.spring.core.dao.RetreiveFieldsValues;
 import com.epam.university.spring.core.dao.Storable;
+import com.epam.university.spring.core.domain.EventShowing;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import java.sql.*;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * User: Nikita_Dobriukha
@@ -25,6 +30,7 @@ public abstract class GenericDaoImpl<T extends Storable<Long>> implements Generi
     private final String SQL_UPDATE_STRING;
     private final String SQL_DELETE_STRING;
     private Class<T> type;
+    private RowMapper<T> rowMapper;
 
     public GenericDaoImpl(JdbcTemplate jdbcTemplate, Class<T> type,
                           String sqlCreateString, String sqlSelectString,
@@ -35,11 +41,22 @@ public abstract class GenericDaoImpl<T extends Storable<Long>> implements Generi
         this.SQL_SELECT_STRING = sqlSelectString;
         this.SQL_UPDATE_STRING = sqlUpdateString;
         this.SQL_DELETE_STRING = sqlDeleteString;
+        this.rowMapper = new BeanPropertyRowMapper<T>(type);
+    }
+
+    public GenericDaoImpl(JdbcTemplate jdbcTemplate, Class<T> type,
+                          String sqlCreateString, String sqlSelectString,
+                          String sqlUpdateString, String sqlDeleteString,
+                          RowMapper<T> rowMapper) {
+        this(jdbcTemplate, type, sqlCreateString, sqlSelectString, sqlUpdateString, sqlDeleteString);
+        this.rowMapper = rowMapper;
     }
 
     public JdbcTemplate getJdbcTemplate() {
         return jdbcTemplate;
     }
+
+    public RowMapper<T> getRowMapper() { return this.rowMapper; }
 
     private void fillStatement(PreparedStatement stmt, Object... params)
             throws SQLException {
@@ -70,7 +87,7 @@ public abstract class GenericDaoImpl<T extends Storable<Long>> implements Generi
     public Long create(T object) {
         try {
             PreparedStatement stmt = DataSourceUtils.getConnection(jdbcTemplate.getDataSource())
-                                        .prepareStatement(SQL_INSERT_STRING, new String[] {"ID"});
+                    .prepareStatement(SQL_INSERT_STRING, new String[]{"ID"});
             fillStatement(stmt, ((RetreiveFieldsValues) object).getFieldsValues());
             int res = stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
@@ -88,7 +105,7 @@ public abstract class GenericDaoImpl<T extends Storable<Long>> implements Generi
     public T get(Long id) {
         try {
             return jdbcTemplate.queryForObject(SQL_SELECT_STRING + " WHERE ID = ?", new Object[] {id},
-                    new BeanPropertyRowMapper<>(type));
+                    rowMapper);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
@@ -96,7 +113,7 @@ public abstract class GenericDaoImpl<T extends Storable<Long>> implements Generi
 
     @Override
     public Collection<T> get() {
-        return jdbcTemplate.query(SQL_SELECT_STRING, new Object[] {}, new BeanPropertyRowMapper<>(type));
+        return jdbcTemplate.query(SQL_SELECT_STRING, new Object[] {}, rowMapper);
     }
 
     @Override

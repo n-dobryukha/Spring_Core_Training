@@ -2,6 +2,7 @@ package com.epam.university.spring.core.dao;
 
 import com.epam.university.spring.core.domain.EventShowing;
 import com.epam.university.spring.core.domain.Ticket;
+import com.epam.university.spring.core.domain.User;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface TicketDao extends GenericDao<Long, Ticket> {
 
     List<Ticket> getTicketsByEventShowing(EventShowing eventShowing);
 
+    List<Ticket> getBookedTickets(User user);
 }

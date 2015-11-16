@@ -20,7 +20,7 @@ public class DummyObjectDao extends GenericDaoImpl<DummyObject> {
     private void createTable() {
         String createString = "CREATE TABLE DUMMY_TABLE "
                 +  "(ID INT NOT NULL GENERATED ALWAYS AS IDENTITY "
-                +  " CONSTRAINT USER_PK PRIMARY KEY, "
+                +  " CONSTRAINT DUMMY_OBJECT_PK PRIMARY KEY, "
                 +  " NAME VARCHAR(50) NOT NULL)";
         getJdbcTemplate().execute(createString);
     }

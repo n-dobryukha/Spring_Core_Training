@@ -1,5 +1,6 @@
 package com.epam.university.spring.core.domain;
 
+import com.epam.university.spring.core.dao.RetreiveFieldsValues;
 import com.epam.university.spring.core.dao.Storable;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
  * Created by Nikita Dobriukha
  * Date: 25.10.2015.
  */
-public class Auditorium implements Storable<Long> {
+public class Auditorium implements Storable<Long>, RetreiveFieldsValues {
     private Long id;
     private String name;
     private int numberOfSeats;
@@ -57,6 +58,11 @@ public class Auditorium implements Storable<Long> {
 
     public boolean isVIP(Integer number) {
         return vipSeats.contains(number);
+    }
+
+    @Override
+    public Object[] getFieldsValues() {
+        return new Object[] { getName(), getNumberOfSeats(), getVipSeats().toString() };
     }
 
     @Override

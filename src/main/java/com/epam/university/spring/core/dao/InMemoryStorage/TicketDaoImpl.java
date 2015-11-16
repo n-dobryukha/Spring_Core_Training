@@ -3,6 +3,7 @@ package com.epam.university.spring.core.dao.InMemoryStorage;
 import com.epam.university.spring.core.dao.TicketDao;
 import com.epam.university.spring.core.domain.EventShowing;
 import com.epam.university.spring.core.domain.Ticket;
+import com.epam.university.spring.core.domain.User;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.ArrayList;
@@ -33,5 +34,13 @@ public class TicketDaoImpl extends GenericDaoImpl<Long, Ticket> implements Ticke
             if (eventShowing.equals(ticket.getEventShowing())) tickets.add(ticket);
         }
         return tickets;
+    }
+
+    public List<Ticket> getBookedTickets(User user) {
+        List<Ticket> bookedTickets = new ArrayList<>();
+        for (Ticket ticket: get()) {
+            if (user.equals(ticket.getUser())) bookedTickets.add(ticket);
+        }
+        return bookedTickets;
     }
 }

@@ -3,6 +3,7 @@ package com.epam.university.spring.core.dao.JdbcStorage;
 import com.epam.university.spring.core.dao.UserDao;
 import com.epam.university.spring.core.domain.Ticket;
 import com.epam.university.spring.core.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -46,8 +47,4 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
                 new Object[] {email}, new BeanPropertyRowMapper<>(User.class));
     }
 
-    @Override
-    public List<Ticket> getBookedTickets(User user) {
-        return null;
-    }
 }
